@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "author": "Toktorbaev Aitmyrza (EEAIR-25)",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -134.1,
+      "left": 186.6,
+      "attrs": { "temperature": "30", "humidity": "35" }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": -86.4,
+      "left": -297.6,
+      "attrs": { "lux": "60000" }
+    },
+    { "type": "wokwi-potentiometer", "id": "potWind", "top": 76.4, "left": -259.4, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "potSoil", "top": 182, "left": -163.4, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay1", "top": 220.4, "left": 220.8, "attrs": {} },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd1",
+      "top": 6.4,
+      "left": 274.4,
+      "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 292.8,
+      "left": 412.25,
+      "rotate": 90,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledPump",
+      "top": 363.6,
+      "left": 407,
+      "attrs": { "color": "blue", "label": "PUMP" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX0", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX0", "$serialMonitor:TX", "", [] ],
+
+    [ "dht1:VCC", "esp:3V3", "red", [] ],
+    [ "dht1:GND", "esp:GND.1", "black", [] ],
+    [ "dht1:SDA", "esp:D15", "green", [] ],
+
+    [ "ldr1:VCC", "esp:3V3", "red", [] ],
+    [ "ldr1:GND", "esp:GND.2", "black", [] ],
+    [ "ldr1:AO", "esp:D34", "orange", [] ],
+
+    [ "potWind:VCC", "esp:3V3", "red", [] ],
+    [ "potWind:GND", "esp:GND.2", "black", [] ],
+    [ "potWind:SIG", "esp:D35", "purple", [] ],
+
+    [ "potSoil:VCC", "esp:3V3", "red", [] ],
+    [ "potSoil:GND", "esp:GND.2", "black", [] ],
+    [ "potSoil:SIG", "esp:D32", "blue", [] ],
+
+    [ "lcd1:VCC", "esp:VIN", "red", [] ],
+    [ "lcd1:GND", "esp:GND.1", "black", [] ],
+    [ "lcd1:SDA", "esp:D21", "green", [] ],
+    [ "lcd1:SCL", "esp:D22", "yellow", [] ],
+
+    [ "relay1:VCC", "esp:VIN", "red", [] ],
+    [ "relay1:GND", "esp:GND.1", "black", [] ],
+    [ "relay1:IN", "esp:D4", "cyan", [] ],
+    [ "relay1:COM", "esp:3V3", "red", [] ],
+    [ "relay1:NO", "r1:1", "orange", [] ],
+    [ "r1:2", "ledPump:A", "orange", [] ],
+    [ "ledPump:C", "esp:GND.1", "black", [] ]
+  ],
+  "dependencies": {}
+}
